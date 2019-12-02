@@ -10,6 +10,7 @@ import io.reactivex.Single
 @Controller("/conferences") // <1>
 class ConferenceController(
     private val conferenceService: ConferenceService,
+    private val lowLevelClient: LowLevelClient,
     private val restService: RestService
 )// <2>
 {
@@ -47,5 +48,13 @@ class ConferenceController(
 
         println("Hello")
         return this.restService.getEmployeesV2().blockingGet()
+    }
+
+    @Get("/employees-blocking3")
+    fun random5(
+    ): List<Map<*, *>> { // <4>
+
+        println("Hello 3")
+        return this.lowLevelClient.getEmployeesV2().blockingGet()
     }
 }
